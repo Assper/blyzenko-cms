@@ -1,5 +1,11 @@
+import { Typography } from '@mui/material'
 import React from 'react'
+import { DashboardContainer } from 'shared/containers/DashboardContainer'
 
 export const Dashboard = () => {
-  return <h1>Dashboard</h1>
+  return (
+    <DashboardContainer>
+      <Typography variant="h1">Dashboard</Typography>
+    </DashboardContainer>
+  )
 }

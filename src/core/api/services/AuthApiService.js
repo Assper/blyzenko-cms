@@ -32,4 +32,15 @@ export class AuthApiService {
     }
     return this.api.returnFailure(status, data.messages)
   }
+
+  async revokeTokens(refreshToken) {
+    const { data, status } = await this.api.post(
+      `${this.baseUrl}/auth/revoke`,
+      { refreshToken }
+    )
+    if (status < StatusCodes.BAD_REQUEST) {
+      return this.api.returnSuccess(status, data.data)
+    }
+    return this.api.returnFailure(status, data.messages)
+  }
 }

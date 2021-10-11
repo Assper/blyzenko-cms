@@ -11,7 +11,7 @@ export const AutoLogin = ({ children }) => {
 
   useEffect(() => {
     const { isAutoLoginComlete, isLogedIn } = auth
-    if (!isLogedIn && !isAutoLoginComlete) {
+    if (!isLogedIn && !isAutoLoginComlete && !refreshTokens.isLoading) {
       const refresh = authService.getRefresh()
       if (!refresh) {
         auth.setState({ isAutoLoginComlete: true })

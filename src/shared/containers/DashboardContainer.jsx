@@ -1,6 +1,7 @@
 import { Container } from '@mui/material'
 import React, { useCallback, useState } from 'react'
 import { Redirect } from 'react-router'
+import { routes } from 'router/routes'
 import { useAuthService } from 'shared/hooks/ioc/useAuthService'
 import { useLogoutReq } from 'shared/hooks/requests/useLogoutReq'
 import { SideNav } from 'shared/widgets/SideNav'
@@ -26,9 +27,9 @@ export const DashboardContainer = ({ children }) => {
 
   const handleMenuClose = useCallback(() => setMenuOpen(false), [setMenuOpen])
 
-  if (!isLogedIn) return <Redirect to="/auth/login" />
+  if (!isLogedIn) return <Redirect to={routes.auth.login} />
   return (
-    <ErrorHandler isError={false} error="">
+    <ErrorHandler isError={logoutReq.isError} error={logoutReq.error}>
       <TopNav
         onLogout={handleLogout}
         onMenuToggle={handleMenuToggle}

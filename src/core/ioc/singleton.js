@@ -1,5 +1,6 @@
 import { ApiService } from 'core/api/services/ApiService'
 import { AuthApiService } from 'core/api/services/AuthApiService'
+import { ShopApiService } from 'core/api/services/ShopApiService'
 import { AuthService } from 'core/services/AuthService'
 import { AuthStorage } from 'core/storages/AuthStorage'
 import { Constant } from './constant'
@@ -24,5 +25,7 @@ export const Singleton = Object.freeze({
     ])(),
   apiService: () =>
     initInstance(ApiService, [Constant.config, Singleton.authService()])(),
-  authApiService: () => initInstance(AuthApiService, [Singleton.apiService()])()
+  authApiService: () =>
+    initInstance(AuthApiService, [Singleton.apiService()])(),
+  shopApiService: () => initInstance(ShopApiService, [Singleton.apiService()])()
 })

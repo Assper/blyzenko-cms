@@ -1,13 +1,17 @@
-import React from 'react'
-import Box from '@mui/material/Box'
-import Drawer from '@mui/material/Drawer'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import { DoorBack } from '@mui/icons-material'
+import React, { useCallback } from 'react'
+import { List, Drawer, Box } from '@mui/material'
+import { SideNavItem } from 'shared/components/SideNavItem'
+import { DoorBack, ContentPaste } from '@mui/icons-material'
+import { useHistory } from 'react-router'
+import { routes } from 'router/routes'
 
 export const SideNav = ({ isOpen, onClose, onLogout }) => {
+  const history = useHistory()
+  const navigateTo = useCallback(
+    (route) => () => history.push(route),
+    [history]
+  )
+
   return (
     <Drawer anchor="left" open={isOpen} onClose={onClose}>
       <Box
@@ -15,12 +19,12 @@ export const SideNav = ({ isOpen, onClose, onLogout }) => {
         role="presentation"
       >
         <List>
-          <ListItem button onClick={onLogout}>
-            <ListItemIcon>
-              <DoorBack />
-            </ListItemIcon>
-            <ListItemText primary="Вийти" />
-          </ListItem>
+          <SideNavItem
+            onClick={navigateTo(routes.admin.shops.base)}
+            title="Магазини"
+            icon={<ContentPaste />}
+          />
+          <SideNavItem onClick={onLogout} title="Вийти" icon={<DoorBack />} />
         </List>
       </Box>
     </Drawer>

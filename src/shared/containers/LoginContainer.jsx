@@ -1,5 +1,6 @@
 import React from 'react'
 import { Redirect } from 'react-router'
+import { routes } from 'router/routes'
 import { useAuthService } from 'shared/hooks/ioc/useAuthService'
 import { ErrorHandler } from '../hocs/ErrorHandler'
 import { useAuth } from '../hooks/contexts/useAuth'
@@ -17,7 +18,7 @@ export const LoginContainer = () => {
     if (result.isSuccess) auth.login(result.data)
   }
 
-  if (authContext.isLogedIn) return <Redirect to="/admin/dashboard" />
+  if (authContext.isLogedIn) return <Redirect to={routes.admin.dashboard} />
   return (
     <ErrorHandler isError={login.isError} error={login.error}>
       <LoginForm onLogin={handleLogin} />

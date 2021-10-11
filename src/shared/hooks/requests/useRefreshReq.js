@@ -10,5 +10,5 @@ export const useRefreshReq = () => {
     [auth]
   )
 
-  return useMutation(callback)
+  return useMutation(callback, { retry: 0 })
 }

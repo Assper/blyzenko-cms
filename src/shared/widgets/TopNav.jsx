@@ -1,10 +1,19 @@
 import React, { useCallback } from 'react'
 import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
+import { styled } from '@mui/system'
+
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+  background: theme.palette.secondary.main
+}))
+
+const StyledToolbar = styled(Toolbar)(({ theme }) => ({
+  display: 'flex',
+  justifyContent: 'space-between'
+}))
 
 export const TopNav = ({ onLogout, onMenuToggle, isMenuOpen = false }) => {
   const handleMenuToggle = useCallback(() => {
@@ -12,24 +21,22 @@ export const TopNav = ({ onLogout, onMenuToggle, isMenuOpen = false }) => {
   }, [onMenuToggle, isMenuOpen])
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-            onClick={handleMenuToggle}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Button color="inherit" onClick={onLogout}>
-            Вийти
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <StyledAppBar position="static">
+      <StyledToolbar>
+        <IconButton
+          size="large"
+          edge="start"
+          color="primary"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+          onClick={handleMenuToggle}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Button color="primary" onClick={onLogout}>
+          Вийти
+        </Button>
+      </StyledToolbar>
+    </StyledAppBar>
   )
 }

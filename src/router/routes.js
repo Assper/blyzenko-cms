@@ -11,9 +11,9 @@ export const routes = {
     dashboard: `${admin}/dashboard`,
     shops: {
       base: `${admin}/shops`,
-      shop: (number) => `${admin}/shops/${number}`,
-      settings: (number) => `${admin}/shops/${number}/settings`,
-      products: (number) => `${admin}/shops/${number}/products`
+      shop: (uuid) => `${admin}/shops/${uuid}`,
+      settings: (uuid) => `${admin}/shops/${uuid}/settings`,
+      products: (uuid) => `${admin}/shops/${uuid}/products`
     }
   }
 }

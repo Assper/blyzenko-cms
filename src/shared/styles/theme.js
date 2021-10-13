@@ -7,7 +7,15 @@ const appTypography = {
     fontSize: 36,
     fontWeight: 600
   },
+  h3: {
+    fontSize: 22,
+    fontWeight: 600
+  },
   body1: {
+    fontSize: 20,
+    fontWeight: 400
+  },
+  body2: {
     fontSize: 16,
     fontWeight: 400
   },

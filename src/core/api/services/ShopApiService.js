@@ -18,4 +18,12 @@ export class ShopApiService {
     }
     return this.api.returnFailure(status, data.messages)
   }
+
+  async getById(uuid) {
+    const { data, status } = await this.api.get(`${this.baseUrl}/${uuid}`)
+    if (status < StatusCodes.BAD_REQUEST) {
+      return this.api.returnSuccess(status, data.data)
+    }
+    return this.api.returnFailure(status, data.messages)
+  }
 }

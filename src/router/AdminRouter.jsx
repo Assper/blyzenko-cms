@@ -1,8 +1,8 @@
 import { Dashboard } from 'pages/admin/Dashboard'
-import { Shops } from 'pages/admin/Shops'
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { routes } from './routes'
+import { ShopsRouter } from './ShopsRouter'
 
 export const AdminRouter = () => {
   return (
@@ -11,7 +11,7 @@ export const AdminRouter = () => {
         <Dashboard />
       </Route>
       <Route path={routes.admin.shops.base}>
-        <Shops />
+        <ShopsRouter />
       </Route>
       <Route path={routes.admin.base}>
         <Redirect to={routes.admin.dashboard} />

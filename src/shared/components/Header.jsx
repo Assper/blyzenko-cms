@@ -3,7 +3,9 @@ import { Typography } from '@mui/material'
 import { styled } from '@mui/system'
 
 const H1 = styled(Typography)(({ theme }) => ({
-  margin: `${theme.spacing(2)} 0`
+  margin: `${theme.spacing(2)} 0`,
+  display: 'flex',
+  alignItems: 'center'
 }))
 
 export const Header = ({ children }) => {

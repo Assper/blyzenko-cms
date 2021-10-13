@@ -1,16 +1,33 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { DataGrid } from '@mui/x-data-grid'
 import { IconButton, Typography } from '@mui/material'
-import { Edit } from '@mui/icons-material'
-import { Link } from 'react-router-dom'
+import { Edit, ShoppingCart } from '@mui/icons-material'
+import { Link, useHistory } from 'react-router-dom'
 import { routes } from 'router/routes'
 
 const EditButton = ({ row }) => {
-  const shopNumber = row.shopNumber
+  const uuid = row.uuid
   return (
-    <Link to={routes.admin.shops.shop(shopNumber)}>
+    <Link
+      to={routes.admin.shops.settings(uuid)}
+      onClick={(e) => e.stopPropagation()}
+    >
       <IconButton color="success">
         <Edit />
+      </IconButton>
+    </Link>
+  )
+}
+
+const ProductsButton = ({ row }) => {
+  const uuid = row.uuid
+  return (
+    <Link
+      to={routes.admin.shops.products(uuid)}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <IconButton color="success">
+        <ShoppingCart />
       </IconButton>
     </Link>
   )
@@ -19,7 +36,7 @@ const EditButton = ({ row }) => {
 const SelfPickup = ({ row }) => {
   const isSelfPickupAvailable = row.settings?.selfPickaping
   return (
-    <Typography variant="body1">
+    <Typography variant="body2">
       {isSelfPickupAvailable ? 'Присутній' : 'Немає'}
     </Typography>
   )
@@ -48,6 +65,22 @@ const columns = [
     headerAlign: 'center'
   },
   {
+    field: 'deliveryRadius',
+    headerName: 'Радіус (м)',
+    width: 120,
+    align: 'center',
+    headerAlign: 'center',
+    valueGetter: ({ row }) => row.settings.deliveryRadius
+  },
+  {
+    field: 'maxWeight',
+    headerName: 'Макс Вага (кг)',
+    width: 150,
+    align: 'center',
+    headerAlign: 'center',
+    valueGetter: ({ row }) => row.settings.maxWeight
+  },
+  {
     field: 'isSelfPickupAvailable',
     headerName: 'Самовивіз',
     width: 200,
@@ -57,18 +90,33 @@ const columns = [
   },
   {
     field: 'edit',
-    headerName: '',
-    width: 80,
+    headerName: 'Налаштування',
+    width: 150,
     align: 'center',
     headerAlign: 'center',
     renderCell: EditButton
+  },
+  {
+    field: 'products',
+    headerName: 'Продукти',
+    width: 120,
+    align: 'center',
+    headerAlign: 'center',
+    renderCell: ProductsButton
   }
 ]
 
 export const ShopsTable = ({ shops }) => {
+  const history = useHistory()
+  const navigateToShop = useCallback(
+    ({ row }) => history.push(routes.admin.shops.shop(row.uuid)),
+    [history]
+  )
+
   return (
     <DataGrid
       rows={shops}
+      onRowClick={navigateToShop}
       columns={columns}
       getRowId={(row) => row.uuid}
       pageSize={50}

@@ -62,7 +62,8 @@ const columns = [
     headerName: 'ID',
     width: 80,
     align: 'center',
-    headerAlign: 'center'
+    headerAlign: 'center',
+    sortComparator: (a, b) => Number(a) - Number(b)
   },
   {
     field: 'address',

@@ -53,7 +53,6 @@ export const ShopInfo = ({ shop }) => {
     [history, uuid]
   )
 
-  console.log(shop)
   return (
     <Container>
       <Stack spacing={1}>

@@ -4,6 +4,7 @@ import { IconButton, Typography } from '@mui/material'
 import { Edit, ShoppingCart } from '@mui/icons-material'
 import { Link, useHistory } from 'react-router-dom'
 import { routes } from 'router/routes'
+import { makeStyles } from '@mui/styles'
 
 const EditButton = ({ row }) => {
   const uuid = row.uuid
@@ -41,6 +42,12 @@ const SelfPickup = ({ row }) => {
     </Typography>
   )
 }
+
+const useStyles = makeStyles({
+  row: {
+    cursor: 'pointer'
+  }
+})
 
 const columns = [
   {
@@ -81,11 +88,12 @@ const columns = [
     valueGetter: ({ row }) => row.settings.maxWeight
   },
   {
-    field: 'isSelfPickupAvailable',
+    field: 'selfPickaping',
     headerName: 'Самовивіз',
     width: 200,
     align: 'center',
     headerAlign: 'center',
+    valueGetter: ({ row }) => row.settings.selfPickaping,
     renderCell: SelfPickup
   },
   {
@@ -108,6 +116,7 @@ const columns = [
 
 export const ShopsTable = ({ shops }) => {
   const history = useHistory()
+  const classes = useStyles()
   const navigateToShop = useCallback(
     ({ row }) => history.push(routes.admin.shops.shop(row.uuid)),
     [history]
@@ -116,6 +125,7 @@ export const ShopsTable = ({ shops }) => {
   return (
     <DataGrid
       rows={shops}
+      getRowClassName={() => classes.row}
       onRowClick={navigateToShop}
       columns={columns}
       getRowId={(row) => row.uuid}

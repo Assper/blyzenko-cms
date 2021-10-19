@@ -29,7 +29,8 @@ export class ApiService {
     return config
   }
 
-  _isShouldRefresh({ status, data }) {
+  _isShouldRefresh(req, { status, data }) {
+    if (req.url.includes('auth/revoke') || !req._retry) return false
     if (status === StatusCodes.UNAUTHORIZED && data) {
       if (Array.isArray(data.messages)) {
         return !data.messages.includes('Invalid credentials')
@@ -42,7 +43,7 @@ export class ApiService {
   async _retryInterceptor(error) {
     const originalRequest = error.config
     if (error.response) {
-      if (this._isShouldRefresh(error.response) && !originalRequest._retry) {
+      if (this._isShouldRefresh(originalRequest, error.response)) {
         originalRequest._retry = true
         const endpoint = `${this.config.api}/auth/refresh`
         const { refresh } = this.authService.getAuthTokens()

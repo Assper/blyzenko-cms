@@ -36,9 +36,10 @@ export class AuthApiService {
   async revokeTokens(refreshToken) {
     const { data, status } = await this.api.post(
       `${this.baseUrl}/auth/revoke`,
-      { refreshToken }
+      { refreshToken },
+      { validateStatus: (status) => status <= StatusCodes.UNAUTHORIZED }
     )
-    if (status < StatusCodes.BAD_REQUEST) {
+    if (status <= StatusCodes.UNAUTHORIZED) {
       return this.api.returnSuccess(status, data.data)
     }
     return this.api.returnFailure(status, data.messages)

@@ -3,8 +3,17 @@ export class AbstractStorage {
     return typeof data === 'object' ? JSON.stringify(data) : data.toString()
   }
 
+  _deserialize(data) {
+    try {
+      return JSON.parse(data)
+    } catch (e) {
+      return data
+    }
+  }
+
   get(key) {
-    return localStorage.getItem(key)
+    const value = localStorage.getItem(key)
+    return this._deserialize(value)
   }
 
   has(key) {

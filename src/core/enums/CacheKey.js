@@ -1,4 +1,5 @@
 export const CacheKey = Object.freeze({
   AllShops: 'shops-all',
-  Shop: 'shop'
+  Shop: 'shop',
+  ShopProducts: 'shop-products'
 })

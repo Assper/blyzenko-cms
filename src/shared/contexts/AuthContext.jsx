@@ -21,10 +21,7 @@ export const AuthContext = createContext(defaultAuthValue)
 AuthContext.displayName = 'AuthContext'
 
 export const AuthProvider = ({ children }) => {
-  const handleState = (data) => {
-    setState({ ...authState, ...data })
-  }
-
+  const handleState = (data) => setState({ ...authState, ...data })
   const [state, setState] = useState({
     ...authState,
     setState: handleState

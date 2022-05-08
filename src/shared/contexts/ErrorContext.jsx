@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useLayoutEffect, useState } from 'react'
 import { ErrorModal } from '../components/ErrorModal'
 
 export const initialErrorState = {
@@ -19,11 +19,7 @@ export const ErrorContext = createContext(defaultErrorValue)
 ErrorContext.displayName = 'ErrorContext'
 
 export const ErrorProvider = ({ children }) => {
-  const handleState = (data) => {
-    errorState = { ...state, ...data }
-    setState(errorState)
-  }
-
+  const handleState = (data) => setState({ ...errorState, ...data })
   const [state, setState] = useState({
     ...errorState,
     setState: handleState
@@ -32,6 +28,10 @@ export const ErrorProvider = ({ children }) => {
   const handleClose = () => {
     state.setState({ message: '', isError: false })
   }
+
+  useLayoutEffect(() => {
+    errorState = state
+  }, [state])
 
   return (
     <ErrorContext.Provider value={state}>

@@ -6,7 +6,7 @@ export const useRefreshReq = () => {
   const auth = useAuthApiService()
 
   const callback = useCallback(
-    async ({ refresh }) => auth.refreshTokens(refresh),
+    ({ refresh }) => auth.refreshTokens(refresh),
     [auth]
   )
 
